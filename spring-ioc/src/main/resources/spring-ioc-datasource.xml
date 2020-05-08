@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    官方文档中有-->
+    <!-- creates a java.util.Properties instance with values loaded from the supplied location -->
+    <bean id="jdbcConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="classpath:jdbc.properties"/>
+<!--        <property name="locations">-->
+<!--            <list>-->
+<!--                <value>classpath:jdbc.properties</value>-->
+<!--            </list>-->
+<!--        </property>-->
+    </bean>
+
+<!--    将BasicDataSource注册到ioc容器中-->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="#{jdbcConfiguration.driver}"/>
+        <property name="url" value="#{jdbcConfiguration.url}"/>
+        <property name="username" value="#{jdbcConfiguration.username}"/>
+        <property name="password" value="#{jdbcConfiguration.password}"/>
+    </bean>
+
+    <bean id="studentDao" class="net.togogo.dao.StudentDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+
+</beans>

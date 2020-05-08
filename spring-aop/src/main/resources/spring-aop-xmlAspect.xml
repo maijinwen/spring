@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd"
+       xmlns:aop="http://www.springframework.org/schema/aop">
+
+    <bean id="hello" class="net.togogo.impl.HelloImpl"/>
+
+    <bean id="xmlAspect" class="net.togogo.xmlaspect.XmlAspect"/>
+
+<!--    配置切面关系-->
+    <aop:config>
+        <aop:pointcut id="myPointCut" expression="execution(* net.togogo.proxy.IHello.*(..))"/>
+        <aop:aspect ref="xmlAspect">
+            <aop:before method="beforeMethod" pointcut-ref="myPointCut"/>
+            <aop:after method="afterMethod" pointcut-ref="myPointCut"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>

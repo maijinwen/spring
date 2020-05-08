@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="mailSender">
+<!--        stmp 发送服务-->
+<!--        IMAP和POP3都是接收服务-->
+<!--        IMAP和POP有什么区别？-->
+<!--        POP允许电子邮件客户端下载服务器上的邮件，但是您在电子邮件客户端的操作（如：移动邮件、标记已读等），这是不会反馈到服务器上的，
+            比如：您通过电子邮件客户端收取了QQ邮箱中的3封邮件并移动到了其他文件夹，这些移动动作是不会反馈到服务器上的，也就是说，QQ邮箱服务器上的这些邮件是没有同时被移动的 。
+            但是IMAP就不同了，电子邮件客户端的操作都会反馈到服务器上，您对邮件进行的操作（如：移动邮件、标记已读等），服务器上的邮件也会做相应的动作。也就是说，IMAP是“双向”的。-->
+<!--        同时，IMAP可以只下载邮件的主题，只有当您真正需要的时候，才会下载邮件的所有内容。-->
+
+<!--        qq接收邮件服务器：imap.qq.com-->
+<!--        qq发送邮件服务器：smtp.qq.com-->
+        <property name="host" value="smtp.qq.com"/>
+        <property name="username" value="1143513795@qq.com"/>
+<!--        授权码，如outlook等非QQ官方的第三方应用的密码均用授权码登录-->
+        <property name="password" value="axjeshplqmttjgaj"/>    <!--eueojpmjaxyqibbb 另一个授权码-->
+        <property name="port" value="25"/>  <!--这是没有进行SSL加密的默认端口号，如需要进行SSL加密发送可在网上搜配置-->
+
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
